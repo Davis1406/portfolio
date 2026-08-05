@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { profile, metrics } from '../data/profile'
-import { terminalLines } from '../data/skills'
 
 function useCountUp(target, { duration = 1400, start = false } = {}) {
   const [value, setValue] = useState(0)
@@ -50,74 +49,46 @@ function Typewriter({ words }) {
   )
 }
 
-function Terminal() {
-  const [shown, setShown] = useState(0)
-  const [cursor, setCursor] = useState(true)
-
-  useEffect(() => {
-    const timers = []
-    terminalLines.forEach((line, i) => {
-      timers.push(setTimeout(() => setShown(i + 1), 400 + i * 260))
-    })
-    timers.push(setTimeout(() => setCursor(false), 400 + terminalLines.length * 260))
-    const blink = setInterval(() => setCursor((c) => !c), 600)
-    return () => {
-      timers.forEach(clearTimeout)
-      clearInterval(blink)
-    }
-  }, [])
-
-  const renderLine = (line, i) => {
-    if (line.type === 'spacer') return <div key={i} className="mt-3"></div>
-    if (line.type === 'comment')
-      return (
-        <div key={i} className="text-on-surface-variant">
-          {line.text}
-        </div>
-      )
-    if (line.type === 'primary')
-      return (
-        <div key={i} className="text-primary">
-          {line.text}
-        </div>
-      )
-    if (line.type === 'cmd')
-      return (
-        <div key={i} className="mt-3">
-          <span className="text-primary font-bold">{line.text.split('$')[0]}</span>
-          <span>$</span>
-          <span className="text-ink-black">{line.text.split('$')[1]}</span>
-        </div>
-      )
-    if (line.type === 'json')
-      return (
-        <div key={i} className="mt-1 text-on-surface-variant whitespace-pre leading-relaxed">
-          {line.text}
-        </div>
-      )
-    return (
-      <div key={i} className="mt-1 text-ink-black">
-        {line.text}
-      </div>
-    )
-  }
-
+function ProfileImage() {
   return (
-    <div className="w-full bg-surface-white rounded-xl overflow-hidden border border-surface-container-high shadow-sm">
-      <div className="h-10 bg-surface-muted flex items-center px-4 gap-2 border-b border-surface-container-high">
-        <div className="w-3 h-3 rounded-full bg-surface-container-highest border border-outline/20"></div>
-        <div className="w-3 h-3 rounded-full bg-surface-container-highest border border-outline/20"></div>
-        <div className="w-3 h-3 rounded-full bg-surface-container-highest border border-outline/20"></div>
-        <div className="ml-4 font-mono text-[12px] text-on-surface-variant/70">
-          core_sequence.sh
+    <div className="relative max-w-[420px] mx-auto w-full">
+      <div className="absolute -inset-3 bg-gradient-to-br from-primary/20 via-transparent to-transparent rounded-2xl blur-2xl"></div>
+      <div className="relative bg-surface-white rounded-2xl p-2.5 border border-surface-container-high tech-shadow">
+        <div className="h-9 bg-surface-muted flex items-center px-4 gap-2 rounded-t-xl border-b border-surface-container-high">
+          <div className="w-3 h-3 rounded-full bg-surface-container-highest border border-outline/20"></div>
+          <div className="w-3 h-3 rounded-full bg-surface-container-highest border border-outline/20"></div>
+          <div className="w-3 h-3 rounded-full bg-surface-container-highest border border-outline/20"></div>
+          <div className="ml-4 font-mono text-[12px] text-on-surface-variant/70">
+            profile_photo.jpeg
+          </div>
+        </div>
+        <div className="relative rounded-xl overflow-hidden">
+          <img
+            src="/profile.jpeg"
+            alt={`${profile.name} — Lead Data Engineer`}
+            className="w-full aspect-square object-cover"
+            loading="eager"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent"></div>
+          <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
+            <div>
+              <p className="font-mono text-[11px] uppercase tracking-widest text-white/80">
+                Status: Online
+              </p>
+              <p className="font-display text-[15px] font-bold text-white">
+                {profile.name}
+              </p>
+            </div>
+            <span className="font-mono text-[11px] text-primary bg-primary/10 border border-primary/30 rounded-md px-2 py-1">
+              {profile.location}
+            </span>
+          </div>
         </div>
       </div>
-      <div className="p-6 font-mono text-[14px] text-ink-black h-[320px] overflow-y-auto bg-surface-bright">
-        {terminalLines.slice(0, shown).map(renderLine)}
-        {cursor && (
-          <span className="inline-block w-2 h-4 bg-primary align-middle animate-pulse"></span>
-        )}
-      </div>
+      <span className="absolute -top-2 -left-3 w-6 h-6 border-t-2 border-l-2 border-primary rounded-tl"></span>
+      <span className="absolute -top-2 -right-3 w-6 h-6 border-t-2 border-r-2 border-primary rounded-tr"></span>
+      <span className="absolute -bottom-2 -left-3 w-6 h-6 border-b-2 border-l-2 border-primary rounded-bl"></span>
+      <span className="absolute -bottom-2 -right-3 w-6 h-6 border-b-2 border-r-2 border-primary rounded-br"></span>
     </div>
   )
 }
@@ -166,16 +137,9 @@ export default function Home({ onNavigate }) {
 
   return (
     <div className="flex flex-col w-full relative z-10">
-      <section className="min-h-[819px] flex flex-col justify-center relative w-full mb-margin-desktop mt-8">
+      <section className="min-h-[calc(100vh-80px)] flex flex-col justify-center relative w-full mb-margin-desktop mt-12">
         <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-gutter">
           <div className="flex-1 w-full space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-surface-muted rounded-full border border-surface-container-high">
-              <span className="w-2 h-2 rounded-full bg-primary animate-ping"></span>
-              <span className="w-2 h-2 rounded-full bg-primary absolute"></span>
-              <span className="font-mono text-[12px] font-bold text-primary uppercase tracking-widest ml-2">
-                System Online // v2.1.0
-              </span>
-            </div>
             <h1 className="font-display text-ink-black">
               <span className="block text-on-surface-variant text-2xl md:text-3xl font-bold tracking-tight">
                 Hello, it's me
@@ -222,7 +186,7 @@ export default function Home({ onNavigate }) {
             </div>
           </div>
           <div className="flex-1 w-full relative">
-            <Terminal />
+            <ProfileImage />
           </div>
         </div>
       </section>

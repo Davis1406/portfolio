@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { profile } from '../data/profile'
+import SocialIcon from '../components/SocialIcon'
 
 function CopyEmail({ email }) {
   const [copied, setCopied] = useState(false)
@@ -114,7 +115,7 @@ export default function Contact() {
                     title={s.name}
                     className="w-12 h-12 rounded-full bg-surface-muted flex items-center justify-center text-on-surface-variant border border-surface-container-high hover:border-primary hover:text-primary transition-all duration-300 transform hover:-translate-y-1"
                   >
-                    <span className="font-mono text-[12px] font-bold">{s.label}</span>
+                    <SocialIcon name={s.name} />
                   </a>
                 ))}
               </div>
