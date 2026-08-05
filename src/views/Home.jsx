@@ -51,7 +51,7 @@ function Typewriter({ words }) {
 
 function ProfileImage() {
   return (
-    <div className="relative max-w-[420px] mx-auto w-full">
+    <div className="relative max-w-[300px] mx-auto w-full">
       <div className="absolute -inset-3 bg-gradient-to-br from-primary/20 via-transparent to-transparent rounded-2xl blur-2xl"></div>
       <div className="relative bg-surface-white rounded-2xl p-2.5 border border-surface-container-high tech-shadow">
         <div className="h-9 bg-surface-muted flex items-center px-4 gap-2 rounded-t-xl border-b border-surface-container-high">
@@ -69,20 +69,6 @@ function ProfileImage() {
             className="w-full aspect-square object-cover"
             loading="eager"
           />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/60 to-transparent"></div>
-          <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-            <div>
-              <p className="font-mono text-[11px] uppercase tracking-widest text-white/80">
-                Status: Online
-              </p>
-              <p className="font-display text-[15px] font-bold text-white">
-                {profile.name}
-              </p>
-            </div>
-            <span className="font-mono text-[11px] text-primary bg-primary/10 border border-primary/30 rounded-md px-2 py-1">
-              {profile.location}
-            </span>
-          </div>
         </div>
       </div>
       <span className="absolute -top-2 -left-3 w-6 h-6 border-t-2 border-l-2 border-primary rounded-tl"></span>
