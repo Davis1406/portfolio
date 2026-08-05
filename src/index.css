@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --surface: 248 249 250;
+    --surface-dim: 217 218 219;
+    --surface-bright: 248 249 250;
+    --surface-container-lowest: 255 255 255;
+    --surface-container-low: 243 244 245;
+    --surface-container: 237 238 239;
+    --surface-container-high: 231 232 233;
+    --surface-container-highest: 225 227 228;
+    --surface-variant: 225 227 228;
+    --surface-white: 255 255 255;
+    --surface-muted: 241 243 245;
+    --on-surface: 25 28 29;
+    --on-surface-variant: 91 64 63;
+    --outline: 143 111 110;
+    --outline-variant: 228 190 188;
+    --ink-black: 31 36 45;
+    --primary: 230 57 70;
+    --primary-container: 219 49 63;
+    --on-primary: 255 255 255;
+    --primary-fixed: 255 218 216;
+    --primary-fixed-dim: 255 179 177;
+    --surface-tint: 187 21 44;
+    --secondary: 150 70 65;
+    --secondary-container: 255 155 146;
+    --on-secondary: 255 255 255;
+    --error: 186 26 26;
+    --error-container: 255 218 214;
+    --accent-cyan: 14 255 249;
+  }
+
+  .dark {
+    --surface: 16 16 18;
+    --surface-dim: 12 12 14;
+    --surface-bright: 23 24 27;
+    --surface-container-lowest: 22 23 26;
+    --surface-container-low: 30 32 35;
+    --surface-container: 35 37 41;
+    --surface-container-high: 42 44 48;
+    --surface-container-highest: 51 53 58;
+    --surface-variant: 38 40 44;
+    --surface-white: 27 28 31;
+    --surface-muted: 36 38 42;
+    --on-surface: 231 226 226;
+    --on-surface-variant: 201 180 178;
+    --outline: 150 128 126;
+    --outline-variant: 69 56 58;
+    --ink-black: 238 240 243;
+    --primary: 255 106 112;
+    --primary-container: 255 106 112;
+    --on-primary: 32 7 10;
+    --primary-fixed: 255 218 216;
+    --primary-fixed-dim: 255 179 177;
+    --surface-tint: 255 135 144;
+    --secondary: 255 155 146;
+    --secondary-container: 255 155 146;
+    --on-secondary: 59 10 7;
+    --error: 255 107 107;
+    --error-container: 90 20 20;
+    --accent-cyan: 14 255 249;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    overscroll-behavior: none;
+    background-color: rgb(var(--surface));
+    color: rgb(var(--on-surface));
+    font-family: 'Hanken Grotesk', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--surface-container));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--outline-variant));
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--primary));
+  }
+}
+
+@layer components {
+  .material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+
+  .grainy-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.025;
+    pointer-events: none;
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+  }
+
+  .tech-shadow {
+    box-shadow: 0 4px 12px rgba(69, 9, 9, 0.05);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out both;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
