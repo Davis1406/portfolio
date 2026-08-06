@@ -4,10 +4,10 @@ import { projects, filters } from '../data/projects'
 function Tag({ children, tone = 'primary' }) {
   const colors =
     tone === 'secondary'
-      ? 'bg-white/90 text-secondary border-secondary/40'
-      : 'bg-white/90 text-primary border-primary/40'
+      ? 'bg-secondary/10 text-secondary border-secondary/30'
+      : 'bg-primary/10 text-primary border-primary/30'
   return (
-    <span className={`px-3 py-1 rounded-full font-mono text-[12px] font-bold border backdrop-blur-sm shadow-sm ${colors}`}>
+    <span className={`px-3 py-1 rounded-full font-mono text-[12px] font-bold border ${colors}`}>
       {children}
     </span>
   )
@@ -19,45 +19,49 @@ function ProjectCard({ project, onOpen }) {
       className={`${project.span} group relative overflow-hidden rounded-xl bg-surface-white border border-outline-variant/50 transition-all duration-500 hover:border-primary/50 hover:shadow-card flex flex-col cursor-pointer`}
       onClick={() => onOpen(project)}
     >
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center transition-all duration-700 group-hover:scale-[1.02] opacity-90 group-hover:opacity-100"
-        style={{ backgroundImage: `url(${project.screenshot})` }}
-        alt={project.title}
-      />
-      <div className="relative z-10 flex-1 p-gutter flex flex-col justify-between h-full bg-gradient-to-t from-surface-white/95 via-surface-white/60 to-surface-white/40">
-        <div className="flex justify-between items-start">
-          <div className="flex flex-wrap gap-2">
-            {project.tags.map((t, i) => (
-              <Tag key={t} tone={i % 2 === 0 ? 'primary' : 'secondary'}>
-                {t}
-              </Tag>
-            ))}
-            {project.private && (
-              <span className="px-3 py-1 rounded-full bg-white/90 text-on-surface font-mono text-[12px] font-bold border border-outline/60 uppercase backdrop-blur-sm shadow-sm">
-                Private
-              </span>
-            )}
-          </div>
-          <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors duration-300">
-            open_in_new
-          </span>
-        </div>
-        <div className="mt-auto">
-          <h2 className="font-display text-2xl font-bold text-on-surface mb-1 group-hover:text-primary transition-colors duration-300">
-            {project.title}
-          </h2>
-          <p className="font-mono text-[12px] text-on-surface-variant uppercase tracking-wider mb-2">
-            {project.subtitle}
-          </p>
-          <p className="font-body text-body-md text-on-surface-variant max-w-xl mb-6 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-100 line-clamp-2">
-            {project.description}
-          </p>
-          <div className="flex gap-4 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-200">
-            <span className="px-6 py-2 rounded bg-primary text-on-primary font-mono text-[12px] uppercase hover:shadow-[0_4px_15px_rgba(230,57,70,0.3)] transition-shadow inline-flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px]">zoom_in</span>
-              View
+      {/* ── Top plate: tags ── */}
+      <div className="relative z-10 flex items-center justify-between gap-2 px-4 py-3 bg-surface-container/95 border-b border-outline-variant/40 shrink-0">
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map((t, i) => (
+            <Tag key={t} tone={i % 2 === 0 ? 'primary' : 'secondary'}>
+              {t}
+            </Tag>
+          ))}
+          {project.private && (
+            <span className="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface font-mono text-[12px] font-bold border border-outline/50 uppercase">
+              Private
             </span>
-          </div>
+          )}
+        </div>
+        <span className="material-symbols-outlined text-outline group-hover:text-primary transition-colors duration-300 shrink-0">
+          open_in_new
+        </span>
+      </div>
+
+      {/* ── Screenshot ── */}
+      <div
+        className="flex-1 bg-cover bg-center transition-all duration-700 group-hover:scale-[1.02] min-h-[160px]"
+        style={{ backgroundImage: `url(${project.screenshot})` }}
+        role="img"
+        aria-label={project.title}
+      />
+
+      {/* ── Bottom plate: title + actions ── */}
+      <div className="relative z-10 px-4 py-3 bg-surface-container/95 border-t border-outline-variant/40 shrink-0">
+        <h2 className="font-display text-lg font-bold text-on-surface group-hover:text-primary transition-colors duration-300 leading-snug">
+          {project.title}
+        </h2>
+        <p className="font-mono text-[11px] text-on-surface-variant uppercase tracking-wider mt-0.5">
+          {project.subtitle}
+        </p>
+        <p className="font-body text-body-sm text-on-surface-variant mt-1 mb-3 line-clamp-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-75">
+          {project.description}
+        </p>
+        <div className="flex gap-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 delay-150">
+          <span className="px-5 py-1.5 rounded bg-primary text-on-primary font-mono text-[11px] uppercase inline-flex items-center gap-1.5 hover:shadow-[0_4px_15px_rgba(230,57,70,0.3)] transition-shadow">
+            <span className="material-symbols-outlined text-[14px]">zoom_in</span>
+            View
+          </span>
         </div>
       </div>
     </article>
