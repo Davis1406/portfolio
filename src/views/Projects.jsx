@@ -2,29 +2,96 @@ import { useEffect, useMemo, useState } from 'react'
 import { projects, filters } from '../data/projects'
 
 function ProjectCard({ project, onOpen }) {
+  const isWide = project.span.includes('col-span-8') || project.span.includes('col-span-12')
+
+  /* ── Wide card: image left · content right ── */
+  if (isWide) {
+    return (
+      <article
+        className={`${project.span} group flex flex-col sm:flex-row overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface-container hover:border-primary/40 hover:shadow-[0_6px_32px_rgba(230,57,70,0.12)] transition-all duration-500 cursor-pointer`}
+        onClick={() => onOpen(project)}
+      >
+        {/* Left: screenshot */}
+        <div className="sm:w-2/5 shrink-0 overflow-hidden min-h-[200px] sm:min-h-0">
+          <div
+            className="w-full h-full min-h-[200px] bg-cover bg-top transition-transform duration-700 group-hover:scale-[1.04]"
+            style={{ backgroundImage: `url(${project.screenshot})` }}
+            role="img"
+            aria-label={project.title}
+          />
+        </div>
+
+        {/* Right: content */}
+        <div className="flex-1 flex flex-col justify-between p-6 gap-3">
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2">
+            {project.tags.map((t, i) => (
+              <span
+                key={t}
+                className={`px-3 py-0.5 rounded-full font-mono text-[11px] font-bold uppercase border ${
+                  i % 2 === 0
+                    ? 'border-primary/40 text-primary'
+                    : 'border-outline-variant/60 text-on-surface-variant'
+                }`}
+              >
+                {t}
+              </span>
+            ))}
+            {project.private && (
+              <span className="px-3 py-0.5 rounded-full font-mono text-[11px] font-bold uppercase border border-outline-variant/60 text-on-surface-variant">
+                Private
+              </span>
+            )}
+          </div>
+
+          {/* Title + subtitle */}
+          <div>
+            <h2 className="font-display text-2xl font-bold text-on-surface leading-tight group-hover:text-primary transition-colors duration-300">
+              {project.title}
+            </h2>
+            <p className="font-display text-[15px] font-semibold text-primary mt-1 leading-snug">
+              {project.subtitle}
+            </p>
+          </div>
+
+          {/* Description */}
+          <p className="font-body text-[14px] text-on-surface-variant leading-relaxed line-clamp-3">
+            {project.description}
+          </p>
+
+          {/* CTA */}
+          <div className="flex items-center justify-between pt-1">
+            <span className="font-mono text-[12px] font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
+              {project.category.includes('web') ? 'View Site' : 'View Project'}
+              <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+            </span>
+            <span className="material-symbols-outlined text-outline-variant/60 group-hover:text-primary transition-colors duration-300 text-[20px]">
+              open_in_new
+            </span>
+          </div>
+        </div>
+      </article>
+    )
+  }
+
+  /* ── Narrow card: full-bleed image · title overlay at bottom ── */
   return (
     <article
       className={`${project.span} group relative overflow-hidden rounded-2xl border border-white/10 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_8px_32px_rgba(230,57,70,0.15)] flex flex-col cursor-pointer min-h-[280px]`}
       onClick={() => onOpen(project)}
     >
-      {/* Full-bleed screenshot — clearly visible, minimal overlay */}
       <div
         className="absolute inset-0 bg-cover bg-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         style={{ backgroundImage: `url(${project.screenshot})` }}
         role="img"
         aria-label={project.title}
       />
+      <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
 
-      {/* Subtle vignette only at very bottom so title plate has backing */}
-      <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
-
-      {/* Top-left: tags */}
+      {/* Tags */}
       <div className="relative z-10 flex flex-wrap gap-1.5 p-3">
         {project.tags.map((t) => (
-          <span
-            key={t}
-            className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase bg-black/55 text-white/90 border border-white/15 backdrop-blur-sm"
-          >
+          <span key={t} className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase bg-black/55 text-white/90 border border-white/15 backdrop-blur-sm">
             {t}
           </span>
         ))}
@@ -35,35 +102,23 @@ function ProjectCard({ project, onOpen }) {
         )}
       </div>
 
-      {/* Top-right: open icon */}
-      <span className="absolute top-3 right-3 z-10 material-symbols-outlined text-white/50 group-hover:text-primary transition-all duration-300 text-[20px]">
+      <span className="absolute top-3 right-3 z-10 material-symbols-outlined text-white/50 group-hover:text-primary transition-colors duration-300 text-[20px]">
         open_in_new
       </span>
 
-      {/* Bottom-left: title plate */}
-      <div className="relative z-10 mt-auto p-3">
-        <div className="inline-block">
-          <h2 className="font-display text-[15px] font-bold text-white leading-snug drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
-            {project.title}
-          </h2>
-          <p className="font-mono text-[10px] text-white/60 uppercase tracking-widest mt-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-            {project.subtitle}
-          </p>
-        </div>
-
-        {/* Hover: description + CTA slide up */}
-        <p className="font-body text-[12px] text-white/80 mt-2 line-clamp-2 max-w-sm
-                      opacity-0 translate-y-2
-                      group-hover:opacity-100 group-hover:translate-y-0
-                      transition-all duration-300 ease-out
-                      drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+      {/* Bottom title */}
+      <div className="relative z-10 mt-auto p-4">
+        <h2 className="font-display text-[15px] font-bold text-white leading-snug drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
+          {project.title}
+        </h2>
+        <p className="font-mono text-[10px] text-white/55 uppercase tracking-widest mt-0.5">
+          {project.subtitle}
+        </p>
+        <p className="font-body text-[12px] text-white/75 mt-2 line-clamp-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
           {project.description}
         </p>
-        <div className="mt-3 flex gap-2
-                        opacity-0 translate-y-2
-                        group-hover:opacity-100 group-hover:translate-y-0
-                        transition-all duration-300 ease-out delay-75">
-          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-primary text-white font-mono text-[10px] font-bold uppercase shadow-[0_2px_12px_rgba(230,57,70,0.5)]">
+        <div className="mt-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-75">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-primary text-white font-mono text-[10px] font-bold uppercase">
             <span className="material-symbols-outlined text-[13px]">zoom_in</span>
             View
           </span>
