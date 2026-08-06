@@ -4,10 +4,10 @@ import { projects, filters } from '../data/projects'
 function Tag({ children, tone = 'primary' }) {
   const colors =
     tone === 'secondary'
-      ? 'bg-secondary/10 text-secondary border-secondary/20'
-      : 'bg-primary/10 text-primary border-primary/20'
+      ? 'bg-white/90 text-secondary border-secondary/40'
+      : 'bg-white/90 text-primary border-primary/40'
   return (
-    <span className={`px-3 py-1 rounded-full font-mono text-[12px] border ${colors}`}>
+    <span className={`px-3 py-1 rounded-full font-mono text-[12px] font-bold border backdrop-blur-sm shadow-sm ${colors}`}>
       {children}
     </span>
   )
@@ -24,7 +24,7 @@ function ProjectCard({ project, onOpen }) {
         style={{ backgroundImage: `url(${project.screenshot})` }}
         alt={project.title}
       />
-      <div className="relative z-10 flex-1 p-gutter flex flex-col justify-between h-full bg-gradient-to-t from-surface-white/95 via-surface-white/70 to-surface-white/20">
+      <div className="relative z-10 flex-1 p-gutter flex flex-col justify-between h-full bg-gradient-to-t from-surface-white/95 via-surface-white/60 to-surface-white/40">
         <div className="flex justify-between items-start">
           <div className="flex flex-wrap gap-2">
             {project.tags.map((t, i) => (
@@ -33,7 +33,7 @@ function ProjectCard({ project, onOpen }) {
               </Tag>
             ))}
             {project.private && (
-              <span className="px-3 py-1 rounded-full bg-ink-black text-surface-white font-mono text-[12px] border border-ink-black uppercase">
+              <span className="px-3 py-1 rounded-full bg-white/90 text-on-surface font-mono text-[12px] font-bold border border-outline/60 uppercase backdrop-blur-sm shadow-sm">
                 Private
               </span>
             )}
