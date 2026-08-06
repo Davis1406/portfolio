@@ -30,11 +30,11 @@ function ProjectCard({ project, onOpen, eager }) {
   if (isWide) {
     return (
       <article
-        className={`${project.span} group flex flex-col md:flex-row md:h-[220px] overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
+        className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
         onClick={() => onOpen(project)}
       >
-        {/* Left: screenshot — 1/3 width, 220px height → landscape container, bg-cover fits well */}
-        <div className="md:w-1/3 h-44 md:h-[220px] shrink-0 overflow-hidden">
+        {/* Left: self-stretch fills card height (driven by content side, same as narrow cards) */}
+        <div className="md:w-1/3 h-[200px] md:h-auto md:self-stretch shrink-0 overflow-hidden">
           <div
             className="w-full h-full bg-cover bg-left-top transition-transform duration-500 group-hover:scale-105"
             style={{ backgroundImage: `url(${project.screenshot})` }}
