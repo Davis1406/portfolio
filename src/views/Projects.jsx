@@ -34,14 +34,14 @@ function ProjectCard({ project, onOpen, eager }) {
         onClick={() => onOpen(project)}
       >
         {/* Left: screenshot — fixed width, stretches full card height */}
-        <div className="md:w-2/5 h-52 md:h-full relative overflow-hidden shrink-0">
+        <div className="md:w-2/5 h-52 md:h-full shrink-0 overflow-hidden">
           <img
             src={project.screenshot}
             alt={project.title}
             loading={eager ? 'eager' : 'lazy'}
-            fetchpriority={eager ? 'high' : 'auto'}
+            fetchPriority={eager ? 'high' : 'auto'}
             decoding={eager ? 'sync' : 'async'}
-            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
@@ -86,13 +86,13 @@ function ProjectCard({ project, onOpen, eager }) {
       onClick={() => onOpen(project)}
     >
       {/* Image — fixed 200px height, always clipped */}
-      <div className="h-[200px] relative overflow-hidden shrink-0">
+      <div className="h-[200px] shrink-0 overflow-hidden relative">
         <img
           src={project.screenshot}
           alt={project.title}
           loading="lazy"
           decoding="async"
-          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
         />
         {/* Fade into card bg */}
         <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-surface-container to-transparent pointer-events-none" />
