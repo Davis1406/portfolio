@@ -35,7 +35,7 @@ function ThemeToggle() {
 
 export default function Header({ active, onNavigate }) {
   return (
-    <header className="fixed top-0 left-20 right-0 h-20 bg-surface-white/80 backdrop-blur-md z-40 flex items-center justify-between px-margin-mobile md:px-margin-desktop border-b border-outline-variant/30">
+    <header className="fixed top-0 left-20 right-0 h-20 bg-surface/95 z-40 flex items-center justify-between px-margin-mobile md:px-margin-desktop border-b border-outline-variant/30">
       <nav className="flex items-center gap-6 md:gap-10 h-full">
         {NAV.map((item) => {
           const isActive = active === item.key

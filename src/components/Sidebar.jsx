@@ -15,7 +15,7 @@ export default function Sidebar({ onShare }) {
   )
 
   return (
-    <aside className="fixed left-0 top-0 h-full w-20 bg-surface-white/80 backdrop-blur-xl border-r border-outline-variant/30 z-50 flex flex-col items-center py-base">
+    <aside className="fixed left-0 top-0 h-full w-20 bg-surface border-r border-outline-variant/30 z-50 flex flex-col items-center py-base">
       <div className="mb-10 mt-4" title={profile.name}>
         {logo}
       </div>

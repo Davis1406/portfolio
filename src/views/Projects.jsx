@@ -30,15 +30,17 @@ function ProjectCard({ project, onOpen }) {
   if (isWide) {
     return (
       <article
-        className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-all duration-500 cursor-pointer`}
+        className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
         onClick={() => onOpen(project)}
       >
         {/* Left: screenshot */}
-        <div className="md:w-1/3 h-56 md:h-auto relative overflow-hidden shrink-0">
+        <div className="md:w-1/3 h-56 md:h-auto relative overflow-hidden shrink-0 min-h-[200px]">
           <img
             src={project.screenshot}
             alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
@@ -79,19 +81,20 @@ function ProjectCard({ project, onOpen }) {
   /* ── Narrow card: image top · content below ── */
   return (
     <article
-      className={`${project.span} group flex flex-col overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-all duration-500 cursor-pointer`}
+      className={`${project.span} group flex flex-col overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
       onClick={() => onOpen(project)}
     >
       {/* Image */}
       <div className="h-52 relative overflow-hidden shrink-0">
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-[1.04]"
-          style={{ backgroundImage: `url(${project.screenshot})` }}
-          role="img"
-          aria-label={project.title}
+        <img
+          src={project.screenshot}
+          alt={project.title}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
         />
         {/* Fade bottom of image into card bg */}
-        <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-surface-container to-transparent" />
+        <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-surface-container to-transparent" />
       </div>
 
       {/* Content */}
@@ -292,7 +295,7 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[minmax(340px,auto)] pb-margin-desktop">
+      <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[minmax(340px,auto)] pb-margin-desktop" style={{ contentVisibility: 'auto' }}>
         {visible.map((p) => (
           <ProjectCard key={p.id} project={p} onOpen={setSelected} />
         ))}
