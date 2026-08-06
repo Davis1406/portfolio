@@ -33,23 +33,14 @@ function ProjectCard({ project, onOpen, eager }) {
         className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
         onClick={() => onOpen(project)}
       >
-        {/* Left: self-stretch fills full card height; hover crossfades to full-screenshot view */}
-        <div className="md:w-1/2 h-[200px] md:h-auto md:self-stretch shrink-0 overflow-hidden relative bg-surface-container">
-          {/* Default: bg-cover fills container (slight side-crop) */}
+        {/* Left: self-stretch fills full card height; screenshot retaken at matching 1.42:1 ratio */}
+        <div className="md:w-1/2 h-[200px] md:h-auto md:self-stretch shrink-0 overflow-hidden relative">
           <div
-            className="absolute inset-0 bg-cover bg-left-top transition-opacity duration-500 opacity-100 group-hover:opacity-0"
+            className="w-full h-full bg-cover bg-top transition-transform duration-500 group-hover:scale-105"
             style={{ backgroundImage: `url(${project.screenshot})` }}
             role="img"
             aria-label={project.title}
           />
-          {/* Hover: bg-contain shows the entire screenshot */}
-          <div
-            className="absolute inset-0 bg-contain bg-no-repeat bg-left-top transition-opacity duration-500 opacity-0 group-hover:opacity-100"
-            style={{ backgroundImage: `url(${project.screenshot})` }}
-            aria-hidden="true"
-          />
-          {/* Bottom fade — hides on hover to keep full screenshot clean */}
-          <div className="absolute bottom-0 inset-x-0 h-8 bg-gradient-to-t from-surface-container to-transparent pointer-events-none transition-opacity duration-300 group-hover:opacity-0" />
         </div>
 
         {/* Right: content */}
