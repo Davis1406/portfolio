@@ -30,11 +30,11 @@ function ProjectCard({ project, onOpen, eager }) {
   if (isWide) {
     return (
       <article
-        className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
+        className={`${project.span} group flex flex-col md:flex-row md:h-[260px] overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
         onClick={() => onOpen(project)}
       >
-        {/* Left: screenshot — self-stretch fills flex row height, bg-cover always works */}
-        <div className="md:w-2/5 h-52 md:h-auto md:self-stretch shrink-0 overflow-hidden">
+        {/* Left: screenshot — explicit h-[260px] so bg-cover always has a landscape container */}
+        <div className="md:w-2/5 h-52 md:h-[260px] shrink-0 overflow-hidden">
           <div
             className="w-full h-full bg-cover bg-left-top transition-transform duration-500 group-hover:scale-105"
             style={{ backgroundImage: `url(${project.screenshot})` }}
@@ -44,7 +44,7 @@ function ProjectCard({ project, onOpen, eager }) {
         </div>
 
         {/* Right: content */}
-        <div className="flex-1 flex flex-col justify-center p-6 gap-3 min-w-0">
+        <div className="flex-1 flex flex-col justify-center p-5 gap-2.5 min-w-0">
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
             {project.tags.map((t, i) => <TagChip key={t} label={t} index={i} />)}
