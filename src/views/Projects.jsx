@@ -1,6 +1,28 @@
 import { useEffect, useMemo, useState } from 'react'
 import { projects, filters } from '../data/projects'
 
+/* Solid filled tag chip — index 0 = primary red, 1 = secondary, 2+ = muted */
+function TagChip({ label, index, isPrivate }) {
+  if (isPrivate) {
+    return (
+      <span className="px-3 py-1 rounded font-mono text-[11px] font-bold uppercase tracking-wider bg-primary/20 text-primary border border-primary/30">
+        Private
+      </span>
+    )
+  }
+  const cls =
+    index === 0
+      ? 'bg-primary text-white'
+      : index === 1
+      ? 'bg-[#6b1f1f] text-white/90'
+      : 'bg-surface-container-high text-on-surface-variant'
+  return (
+    <span className={`px-3 py-1 rounded font-mono text-[11px] font-bold uppercase tracking-wider ${cls}`}>
+      {label}
+    </span>
+  )
+}
+
 function ProjectCard({ project, onOpen }) {
   const isWide = project.span.includes('col-span-8') || project.span.includes('col-span-12')
 
@@ -8,40 +30,24 @@ function ProjectCard({ project, onOpen }) {
   if (isWide) {
     return (
       <article
-        className={`${project.span} group flex flex-col sm:flex-row overflow-hidden rounded-2xl border border-outline-variant/40 bg-surface-container hover:border-primary/40 hover:shadow-[0_6px_32px_rgba(230,57,70,0.12)] transition-all duration-500 cursor-pointer`}
+        className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-all duration-500 cursor-pointer`}
         onClick={() => onOpen(project)}
       >
         {/* Left: screenshot */}
-        <div className="sm:w-2/5 shrink-0 overflow-hidden min-h-[200px] sm:min-h-0">
-          <div
-            className="w-full h-full min-h-[200px] bg-cover bg-top transition-transform duration-700 group-hover:scale-[1.04]"
-            style={{ backgroundImage: `url(${project.screenshot})` }}
-            role="img"
-            aria-label={project.title}
+        <div className="md:w-1/3 h-56 md:h-auto relative overflow-hidden shrink-0">
+          <img
+            src={project.screenshot}
+            alt={project.title}
+            className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
           />
         </div>
 
         {/* Right: content */}
-        <div className="flex-1 flex flex-col justify-between p-6 gap-3">
+        <div className="flex-1 flex flex-col justify-center p-6 gap-4">
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
-            {project.tags.map((t, i) => (
-              <span
-                key={t}
-                className={`px-3 py-0.5 rounded-full font-mono text-[11px] font-bold uppercase border ${
-                  i % 2 === 0
-                    ? 'border-primary/40 text-primary'
-                    : 'border-outline-variant/60 text-on-surface-variant'
-                }`}
-              >
-                {t}
-              </span>
-            ))}
-            {project.private && (
-              <span className="px-3 py-0.5 rounded-full font-mono text-[11px] font-bold uppercase border border-outline-variant/60 text-on-surface-variant">
-                Private
-              </span>
-            )}
+            {project.tags.map((t, i) => <TagChip key={t} label={t} index={i} />)}
+            {project.private && <TagChip label="Private" isPrivate />}
           </div>
 
           {/* Title + subtitle */}
@@ -60,67 +66,57 @@ function ProjectCard({ project, onOpen }) {
           </p>
 
           {/* CTA */}
-          <div className="flex items-center justify-between pt-1">
-            <span className="font-mono text-[12px] font-bold uppercase tracking-widest text-on-surface-variant group-hover:text-primary transition-colors duration-300 inline-flex items-center gap-1.5">
+          <div>
+            <button className="px-6 py-2 rounded bg-primary text-white font-mono text-[12px] font-bold uppercase hover:shadow-[0_4px_15px_rgba(230,57,70,0.3)] transition-shadow">
               {project.category.includes('web') ? 'View Site' : 'View Project'}
-              <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
-            </span>
-            <span className="material-symbols-outlined text-outline-variant/60 group-hover:text-primary transition-colors duration-300 text-[20px]">
-              open_in_new
-            </span>
+            </button>
           </div>
         </div>
       </article>
     )
   }
 
-  /* ── Narrow card: full-bleed image · title overlay at bottom ── */
+  /* ── Narrow card: image top · content below ── */
   return (
     <article
-      className={`${project.span} group relative overflow-hidden rounded-2xl border border-white/10 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_8px_32px_rgba(230,57,70,0.15)] flex flex-col cursor-pointer min-h-[280px]`}
+      className={`${project.span} group flex flex-col overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-all duration-500 cursor-pointer`}
       onClick={() => onOpen(project)}
     >
-      <div
-        className="absolute inset-0 bg-cover bg-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-        style={{ backgroundImage: `url(${project.screenshot})` }}
-        role="img"
-        aria-label={project.title}
-      />
-      <div className="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-black/70 to-transparent pointer-events-none" />
-
-      {/* Tags */}
-      <div className="relative z-10 flex flex-wrap gap-1.5 p-3">
-        {project.tags.map((t) => (
-          <span key={t} className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase bg-black/55 text-white/90 border border-white/15 backdrop-blur-sm">
-            {t}
-          </span>
-        ))}
-        {project.private && (
-          <span className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase bg-primary/75 text-white border border-primary/30 backdrop-blur-sm">
-            Private
-          </span>
-        )}
+      {/* Image */}
+      <div className="h-52 relative overflow-hidden shrink-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-[1.04]"
+          style={{ backgroundImage: `url(${project.screenshot})` }}
+          role="img"
+          aria-label={project.title}
+        />
+        {/* Fade bottom of image into card bg */}
+        <div className="absolute bottom-0 inset-x-0 h-16 bg-gradient-to-t from-surface-container to-transparent" />
       </div>
 
-      <span className="absolute top-3 right-3 z-10 material-symbols-outlined text-white/50 group-hover:text-primary transition-colors duration-300 text-[20px]">
-        open_in_new
-      </span>
+      {/* Content */}
+      <div className="flex-1 flex flex-col p-6 gap-3">
+        {/* Tags */}
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map((t, i) => <TagChip key={t} label={t} index={i} />)}
+          {project.private && <TagChip label="Private" isPrivate />}
+        </div>
 
-      {/* Bottom title */}
-      <div className="relative z-10 mt-auto p-4">
-        <h2 className="font-display text-[15px] font-bold text-white leading-snug drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
+        {/* Title */}
+        <h2 className="font-display text-lg font-bold text-on-surface group-hover:text-primary transition-colors duration-300 leading-snug">
           {project.title}
         </h2>
-        <p className="font-mono text-[10px] text-white/55 uppercase tracking-widest mt-0.5">
-          {project.subtitle}
-        </p>
-        <p className="font-body text-[12px] text-white/75 mt-2 line-clamp-2 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+
+        {/* Description */}
+        <p className="font-body text-[13px] text-on-surface-variant leading-relaxed line-clamp-3 flex-1">
           {project.description}
         </p>
-        <div className="mt-3 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 delay-75">
-          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-primary text-white font-mono text-[10px] font-bold uppercase">
-            <span className="material-symbols-outlined text-[13px]">zoom_in</span>
-            View
+
+        {/* CTA */}
+        <div className="mt-auto pt-1">
+          <span className="inline-flex items-center gap-1 text-primary font-mono text-[12px] font-bold uppercase group-hover:underline transition-all">
+            {project.category.includes('web') ? 'View Site' : 'View Project'}
+            <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
           </span>
         </div>
       </div>
