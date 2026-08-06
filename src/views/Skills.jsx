@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { radarAxes, radarValues, competence, skillBars, activeStack } from '../data/skills'
+import { radarAxes, radarValues, competence, skillBars, activeStack, terminalLines } from '../data/skills'
 import { githubConfig, fetchPublicContributions } from '../data/github'
 
 const angleOf = (index, count) => (-90 + index * (360 / count)) * (Math.PI / 180)
@@ -270,6 +270,57 @@ function Heatmap({ days = 90 }) {
   )
 }
 
+function Terminal({ lines }) {
+  const [visible, setVisible] = useState(0)
+
+  useEffect(() => {
+    if (visible >= lines.length) return
+    const t = setTimeout(() => setVisible((v) => v + 1), visible === 0 ? 400 : 80)
+    return () => clearTimeout(t)
+  }, [visible, lines.length])
+
+  return (
+    <div className="font-mono text-[12px] leading-relaxed overflow-y-auto max-h-[340px] pr-1 space-y-0.5 scrollbar-thin">
+      {lines.slice(0, visible).map((line, i) => {
+        if (line.type === 'spacer') return <div key={i} className="h-2" />
+        if (line.type === 'comment')
+          return (
+            <div key={i} className="text-on-surface-variant opacity-60">
+              {line.text}
+            </div>
+          )
+        if (line.type === 'primary')
+          return (
+            <div key={i} className="text-primary font-bold">
+              {line.text}
+            </div>
+          )
+        if (line.type === 'cmd')
+          return (
+            <div key={i} className="text-[#4ade80]">
+              {line.text}
+            </div>
+          )
+        if (line.type === 'json') {
+          return (
+            <pre key={i} className="text-[11px] text-on-surface-variant whitespace-pre-wrap break-all leading-relaxed">
+              {line.text}
+            </pre>
+          )
+        }
+        return (
+          <div key={i} className="text-on-surface">
+            {line.text}
+          </div>
+        )
+      })}
+      {visible < lines.length && (
+        <span className="inline-block w-2 h-3.5 bg-primary animate-pulse align-middle" />
+      )}
+    </div>
+  )
+}
+
 export default function Skills({ onNavigate }) {
   return (
     <div className="flex flex-col w-full gap-gutter py-8">
@@ -390,7 +441,21 @@ export default function Skills({ onNavigate }) {
           </button>
         </section>
 
-        <section className="lg:col-span-12 bg-surface-container-lowest rounded-xl p-gutter tech-shadow border border-outline-variant/50">
+        {/* core_sequence.sh + Commit Frequency Matrix — side by side */}
+        <section className="lg:col-span-6 bg-surface-container-lowest rounded-xl tech-shadow border border-outline-variant/50 flex flex-col overflow-hidden">
+          {/* Terminal title bar */}
+          <div className="flex items-center gap-2 px-4 py-3 bg-surface-container border-b border-outline-variant/40 shrink-0">
+            <span className="w-3 h-3 rounded-full bg-[#FF5F56]"></span>
+            <span className="w-3 h-3 rounded-full bg-[#FFBD2E]"></span>
+            <span className="w-3 h-3 rounded-full bg-[#27C93F]"></span>
+            <span className="ml-2 font-mono text-[12px] text-on-surface-variant">core_sequence.sh</span>
+          </div>
+          <div className="flex-1 p-gutter bg-surface-container-lowest">
+            <Terminal lines={terminalLines} />
+          </div>
+        </section>
+
+        <section className="lg:col-span-6 bg-surface-container-lowest rounded-xl p-gutter tech-shadow border border-outline-variant/50">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-8 gap-4">
             <div>
               <h2 className="font-display text-headline-md font-semibold text-on-surface mb-2">

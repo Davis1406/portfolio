@@ -1,61 +1,121 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
   <defs>
-    <linearGradient id="bghoca-africa" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#eef2f0"/>
-    </linearGradient>
+    <clipPath id="clip-hoca-c1"><circle cx="1085" cy="305" r="118"/></clipPath>
+    <clipPath id="clip-hoca-c2"><circle cx="845" cy="435" r="88"/></clipPath>
+    <clipPath id="clip-hoca-c3"><circle cx="1070" cy="578" r="103"/></clipPath>
   </defs>
-  <rect width="1280" height="800" fill="url(#bghoca-africa)"/>
-  <rect x="0" y="0" width="1280" height="52" fill="#f8f9fa" stroke="#d9dfdc" stroke-opacity="0.5"/>
-  <circle cx="26" cy="26" r="7" fill="#2f6f4f" opacity="0.9"/>
-  <circle cx="48" cy="26" r="7" fill="#edeeef" stroke="#d9dfdc" stroke-opacity="0.5"/>
-  <circle cx="70" cy="26" r="7" fill="#edeeef" stroke="#d9dfdc" stroke-opacity="0.5"/>
-  <rect x="150" y="15" width="420" height="22" rx="11" fill="#ffffff" stroke="#d9dfdc" stroke-opacity="0.5"/>
-  <text x="170" y="31" font-family="JetBrains Mono, monospace" font-size="13" fill="#6b7f74">hoca-africa.org</text>
-  <rect x="0" y="52" width="1280" height="80" fill="#ffffff" stroke="#d9dfdc" stroke-opacity="0.5"/>
-  <rect x="40" y="68" width="46" height="46" rx="10" fill="#2f6f4f" opacity="0.9"/>
-  <rect x="100" y="78" width="150" height="14" rx="7" fill="#191c1d"/>
-  <rect x="100" y="98" width="110" height="9" rx="4.5" fill="#9aa8a0"/>
-  <rect x="940" y="80" width="70" height="22" rx="11" fill="#2f6f4f" opacity="0.9"/>
-  <g fill="#5c6b62">
-    <rect x="780" y="86" width="36" height="9" rx="4.5"/><rect x="828" y="86" width="36" height="9" rx="4.5"/><rect x="876" y="86" width="36" height="9" rx="4.5"/>
+
+  <!-- Page background -->
+  <rect width="1280" height="800" fill="#FFFFFF"/>
+
+  <!-- ── Browser chrome ─────────────────────────────── -->
+  <rect x="0" y="0" width="1280" height="44" fill="#F1F3F4"/>
+  <circle cx="22" cy="22" r="7" fill="#FF5F56"/>
+  <circle cx="44" cy="22" r="7" fill="#FFBD2E"/>
+  <circle cx="66" cy="22" r="7" fill="#27C93F"/>
+  <rect x="170" y="10" width="380" height="24" rx="12" fill="#FFFFFF" stroke="#DADCE0" stroke-width="1"/>
+  <text x="360" y="27" font-family="JetBrains Mono, monospace" font-size="12" fill="#5F6368" text-anchor="middle">hoca-africa.org</text>
+
+  <!-- ── Navigation bar ─────────────────────────────── -->
+  <rect x="0" y="44" width="1280" height="82" fill="#FFFFFF"/>
+  <line x1="0" y1="126" x2="1280" y2="126" stroke="#E5E7EB" stroke-width="1"/>
+
+  <!-- Logo: Africa silhouette (simplified stylised continent) -->
+  <g transform="translate(38,54)">
+    <!-- Africa shape simplified -->
+    <path d="M4,2 L34,2 L42,12 L44,24 L38,38 L30,52 L22,58 L14,52 L6,38 L0,24 L4,12 Z"
+          fill="#F59E0B" opacity="0.85"/>
+    <!-- Overlay H O C A letters on shape -->
+    <text x="3"  y="28" font-family="Sora,sans-serif" font-size="15" font-weight="900" fill="#7B1111">H</text>
+    <text x="14" y="28" font-family="Sora,sans-serif" font-size="15" font-weight="900" fill="#7B1111">O</text>
+    <text x="25" y="28" font-family="Sora,sans-serif" font-size="15" font-weight="900" fill="#7B1111">C</text>
+    <text x="34" y="28" font-family="Sora,sans-serif" font-size="15" font-weight="900" fill="#7B1111">A</text>
   </g>
-  <rect x="0" y="132" width="1280" height="360" fill="#2f6f4f" opacity="0.07"/>
-  <rect x="40" y="180" width="620" height="30" rx="8" fill="#2f6f4f" opacity="0.9"/>
-  <rect x="40" y="232" width="520" height="16" rx="8" fill="#5c6b62"/>
-  <rect x="40" y="262" width="560" height="16" rx="8" fill="#5c6b62"/>
-  <rect x="40" y="292" width="300" height="16" rx="8" fill="#5c6b62"/>
-  <rect x="40" y="350" width="150" height="44" rx="22" fill="#2f6f4f" opacity="0.9"/>
-  <rect x="210" y="350" width="150" height="44" rx="22" fill="#ffffff" stroke="#2f6f4f" stroke-opacity="0.6"/>
-  <rect x="900" y="170" width="320" height="230" rx="14" fill="#ffffff" stroke="#d9dfdc" stroke-opacity="0.6"/>
-  <rect x="940" y="210" width="150" height="120" rx="10" fill="#2f6f4f" opacity="0.12"/>
-  <rect x="1100" y="210" width="80" height="120" rx="10" fill="#2f6f4f" opacity="0.2"/>
-  <rect x="960" y="352" width="90" height="10" rx="5" fill="#9aa8a0"/>
-  <g fill="#2f6f4f">
-    <circle cx="956" cy="368" r="14" opacity="0.9"/><circle cx="1004" cy="368" r="14" opacity="0.9"/><circle cx="1052" cy="368" r="14" opacity="0.9"/>
-  </g>
-  <g>
-    <rect x="40" y="540" width="280" height="170" rx="14" fill="#ffffff" stroke="#d9dfdc" stroke-opacity="0.6"/>
-    <rect x="40" y="532" width="280" height="170" rx="14" fill="#2f6f4f" opacity="0.05"/>
-    <rect x="70" y="575" width="220" height="14" rx="7" fill="#191c1d"/>
-    <rect x="70" y="605" width="190" height="10" rx="5" fill="#9aa8a0"/>
-    <rect x="70" y="628" width="210" height="10" rx="5" fill="#9aa8a0"/>
-    <rect x="70" y="666" width="90" height="10" rx="5" fill="#2f6f4f"/>
-  </g>
-  <g>
-    <rect x="340" y="540" width="280" height="170" rx="14" fill="#ffffff" stroke="#d9dfdc" stroke-opacity="0.6"/>
-    <rect x="70" y="575" width="220" height="14" rx="7" fill="#191c1d"/>
-    <rect x="70" y="605" width="190" height="10" rx="5" fill="#9aa8a0"/>
-    <rect x="70" y="628" width="210" height="10" rx="5" fill="#9aa8a0"/>
-    <rect x="70" y="666" width="90" height="10" rx="5" fill="#2f6f4f"/>
-  </g>
-  <g>
-    <rect x="640" y="540" width="280" height="170" rx="14" fill="#ffffff" stroke="#d9dfdc" stroke-opacity="0.6"/>
-    <rect x="70" y="575" width="220" height="14" rx="7" fill="#191c1d"/>
-    <rect x="70" y="605" width="190" height="10" rx="5" fill="#9aa8a0"/>
-    <rect x="70" y="628" width="210" height="10" rx="5" fill="#9aa8a0"/>
-    <rect x="70" y="666" width="90" height="10" rx="5" fill="#2f6f4f"/>
-  </g>
-  <text x="40" y="510" font-family="Sora, sans-serif" font-size="26" font-weight="700" fill="#191c1d">Transforming Elder Care Across Africa</text>
-  <text x="40" y="770" font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="4" fill="#2f6f4f">REPLACE_ME · SCREENSHOT</text>
+
+  <!-- Logo wordmark text -->
+  <line x1="97" y1="62" x2="97" y2="112" stroke="#D1D5DB" stroke-width="1"/>
+  <text x="108" y="78" font-family="Sora,sans-serif" font-size="14" font-weight="800" fill="#111827" letter-spacing="0.5">HOCA</text>
+  <text x="108" y="96" font-family="Sora,sans-serif" font-size="8.5" fill="#6B7280" letter-spacing="0.8">HOME CARE</text>
+  <text x="108" y="109" font-family="Sora,sans-serif" font-size="8.5" fill="#6B7280" letter-spacing="0.8">ALLIANCE AFRICA</text>
+
+  <!-- Nav links -->
+  <text x="390" y="92" font-family="Sora,sans-serif" font-size="14" fill="#374151">Home</text>
+  <text x="445" y="92" font-family="Sora,sans-serif" font-size="14" fill="#374151">About Us ▾</text>
+  <text x="554" y="92" font-family="Sora,sans-serif" font-size="14" fill="#374151">Our Services ▾</text>
+  <text x="682" y="92" font-family="Sora,sans-serif" font-size="14" fill="#374151">Blog ▾</text>
+  <text x="736" y="92" font-family="Sora,sans-serif" font-size="14" fill="#374151">Contact Us</text>
+
+  <!-- Join Us button -->
+  <rect x="840" y="72" width="88" height="36" rx="4" fill="#7B1111"/>
+  <text x="884" y="95" font-family="Sora,sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">Join Us</text>
+
+  <!-- Donate button -->
+  <rect x="944" y="72" width="115" height="36" rx="4" fill="#D4A017"/>
+  <text x="1001" y="95" font-family="Sora,sans-serif" font-size="13.5" font-weight="600" fill="#FFFFFF" text-anchor="middle">♥ Donate</text>
+
+  <!-- ── Hero section ───────────────────────────────── -->
+  <rect x="0" y="126" width="1280" height="596" fill="#FAFAFA"/>
+
+  <!-- Hero headline left -->
+  <!-- "Transforming" -->
+  <text x="85" y="230" font-family="Sora,sans-serif" font-size="64" font-weight="800" fill="#111827" letter-spacing="-1">Transforming</text>
+  <!-- "Elder " (dark) + "Care" (red) -->
+  <text x="85" y="310" font-family="Sora,sans-serif" font-size="64" font-weight="800" fill="#111827" letter-spacing="-1">Elder </text>
+  <text x="289" y="310" font-family="Sora,sans-serif" font-size="64" font-weight="800" fill="#7B1111" letter-spacing="-1">Care</text>
+  <!-- "Across Africa" (red) -->
+  <text x="85" y="390" font-family="Sora,sans-serif" font-size="64" font-weight="800" fill="#7B1111" letter-spacing="-1">Across Africa</text>
+
+  <!-- Subtext -->
+  <text x="85" y="440" font-family="Sora,sans-serif" font-size="16" fill="#6B7280">Uniting governments, providers, and partners to build trusted</text>
+  <text x="85" y="464" font-family="Sora,sans-serif" font-size="16" fill="#6B7280">standards and professional caregiving systems for elders and</text>
+  <text x="85" y="488" font-family="Sora,sans-serif" font-size="16" fill="#6B7280">families—rooted in African values and guided by global standards.</text>
+
+  <!-- "Join Us Today →" CTA button -->
+  <rect x="85" y="518" width="215" height="54" rx="6" fill="#7B1111"/>
+  <text x="192" y="551" font-family="Sora,sans-serif" font-size="16" font-weight="600" fill="#FFFFFF" text-anchor="middle">Join Us Today  →</text>
+
+  <!-- ── Right side: three overlapping circles ─────── -->
+
+  <!-- Decorative floating accent rectangles -->
+  <rect x="762" y="344" width="50" height="50" rx="10" fill="#E9D5E8" opacity="0.75"/>
+  <rect x="1192" y="458" width="60" height="60" rx="10" fill="#D5E0E9" opacity="0.60"/>
+
+  <!-- Faint background ring for large top circle -->
+  <circle cx="1085" cy="305" r="138" fill="none" stroke="#C9B8D4" stroke-width="1.2" opacity="0.45"/>
+
+  <!-- Large top-right circle: elderly group -->
+  <circle cx="1085" cy="305" r="118" fill="#EDE4EB"/>
+  <!-- Placeholder figures: 3 people seated -->
+  <circle cx="1035" cy="272" r="28" fill="#B8A5BF" opacity="0.55"/>
+  <circle cx="1085" cy="262" r="30" fill="#9C8AAF" opacity="0.6"/>
+  <circle cx="1135" cy="272" r="26" fill="#B8A5BF" opacity="0.55"/>
+  <rect x="1005" y="296" width="72" height="90" rx="6" fill="#9C8AAF" opacity="0.3"/>
+  <rect x="1055" y="288" width="72" height="98" rx="6" fill="#7A6890" opacity="0.35"/>
+  <rect x="1108" y="296" width="65" height="90" rx="6" fill="#9C8AAF" opacity="0.3"/>
+
+  <!-- Faint ring for medium middle-left circle -->
+  <circle cx="845" cy="435" r="106" fill="none" stroke="#C9B8D4" stroke-width="1.2" opacity="0.45"/>
+
+  <!-- Medium circle: woman in colourful dress -->
+  <circle cx="845" cy="435" r="88" fill="#EDE4EB"/>
+  <circle cx="845" cy="398" r="30" fill="#9C8AAF" opacity="0.55"/>
+  <!-- Colourful dress body (orange/warm) -->
+  <ellipse cx="845" cy="458" rx="42" ry="55" fill="#D97706" opacity="0.35"/>
+  <ellipse cx="845" cy="458" rx="28" ry="40" fill="#B45309" opacity="0.3"/>
+
+  <!-- Faint ring for large bottom-right circle -->
+  <circle cx="1070" cy="578" r="120" fill="none" stroke="#C9B8D4" stroke-width="1.2" opacity="0.45"/>
+
+  <!-- Large bottom-right circle: caregiver with patient -->
+  <circle cx="1070" cy="578" r="103" fill="#EDE4EB"/>
+  <!-- Two figures: caregiver standing, patient seated -->
+  <circle cx="1040" cy="542" r="25" fill="#9C8AAF" opacity="0.55"/>
+  <circle cx="1098" cy="537" r="24" fill="#B8A5BF" opacity="0.5"/>
+  <rect x="1010" y="563" width="60" height="90" rx="6" fill="#7A6890" opacity="0.35"/>
+  <rect x="1065" y="558" width="80" height="95" rx="6" fill="#9C8AAF" opacity="0.3"/>
+
+  <!-- ── SANITIZED DEMO footer ──────────────────────── -->
+  <rect x="0" y="760" width="1280" height="40" fill="#7B1111"/>
+  <text x="640" y="785" font-family="JetBrains Mono, monospace" font-size="13" font-weight="700"
+        fill="#FFFFFF" text-anchor="middle" letter-spacing="3">SANITIZED DEMO · ALL DATA IS PLACEHOLDER</text>
 </svg>
