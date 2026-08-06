@@ -190,7 +190,7 @@ export const projects = [
     subtitle: 'Home Care Alliance Africa',
     description:
       'Website for Home Care Alliance Africa (HOCA-A), a non-profit transforming elder care across Africa by uniting governments, providers and partners around professional caregiving standards.',
-    screenshot: '/projects/hoca-africa.svg',
+    screenshot: '/projects/hoca-africa.png',
     tags: ['WORDPRESS', 'NON-PROFIT'],
     category: ['web'],
     span: 'lg:col-span-8',
