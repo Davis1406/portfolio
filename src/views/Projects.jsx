@@ -33,14 +33,16 @@ function ProjectCard({ project, onOpen, eager }) {
         className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
         onClick={() => onOpen(project)}
       >
-        {/* Left: self-stretch fills card height (driven by content side, same as narrow cards) */}
-        <div className="md:w-1/3 h-[200px] md:h-auto md:self-stretch shrink-0 overflow-hidden">
+        {/* Left: fixed 200px height so container stays landscape (never portrait-stretched) */}
+        <div className="md:w-1/2 h-[200px] shrink-0 overflow-hidden relative">
           <div
             className="w-full h-full bg-cover bg-left-top transition-transform duration-500 group-hover:scale-105"
             style={{ backgroundImage: `url(${project.screenshot})` }}
             role="img"
             aria-label={project.title}
           />
+          {/* Fade bottom edge so image flows into card background */}
+          <div className="absolute bottom-0 inset-x-0 h-8 bg-gradient-to-t from-surface-container to-transparent pointer-events-none" />
         </div>
 
         {/* Right: content */}
