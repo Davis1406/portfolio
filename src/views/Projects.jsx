@@ -85,45 +85,49 @@ function Lightbox({ project, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[60] bg-ink-black/70 backdrop-blur-sm flex items-center justify-center p-6 animate-fade-in"
+      className="fixed inset-0 z-[60] bg-black/80 flex items-center justify-center p-4 md:p-6"
+      style={{ animation: 'fadeIn 0.2s ease-out both' }}
       onClick={onClose}
     >
       <div
-        className="bg-surface-white rounded-xl max-w-5xl w-full overflow-hidden tech-shadow"
+        className="bg-[#16181c] rounded-2xl max-w-5xl w-full overflow-hidden shadow-2xl border border-white/10"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="h-12 bg-surface-muted flex items-center px-4 gap-2 border-b border-surface-container-high">
-          <div className="w-3 h-3 rounded-full bg-error"></div>
-          <div className="w-3 h-3 rounded-full bg-surface-container-highest"></div>
-          <div className="w-3 h-3 rounded-full bg-surface-container-highest"></div>
-          <div className="ml-4 font-mono text-[12px] text-on-surface-variant/70 truncate">
+        {/* Title bar */}
+        <div className="h-11 bg-[#1e2026] flex items-center px-4 gap-2 border-b border-white/10">
+          <button onClick={onClose} className="w-3 h-3 rounded-full bg-[#FF5F56] hover:opacity-80 transition-opacity" title="Close" />
+          <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
+          <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
+          <div className="ml-4 font-mono text-[12px] text-white/40 truncate">
             {project.title.toLowerCase().replace(/ /g, '_')} — screenshot
           </div>
-          <button
-            onClick={onClose}
-            className="ml-auto text-on-surface-variant hover:text-primary transition-colors"
-            title="Close"
-          >
-            <span className="material-symbols-outlined">close</span>
+          <button onClick={onClose} className="ml-auto text-white/40 hover:text-primary transition-colors">
+            <span className="material-symbols-outlined text-[20px]">close</span>
           </button>
         </div>
+
+        {/* Screenshot */}
         <img
           src={project.screenshot}
           alt={`${project.title} screenshot`}
-          className="w-full max-h-[65vh] object-cover"
+          className="w-full max-h-[60vh] object-cover object-top"
         />
-        <div className="p-6 flex flex-col md:flex-row gap-4 md:items-center justify-between">
+
+        {/* Info bar */}
+        <div className="p-5 flex flex-col md:flex-row gap-4 md:items-start justify-between border-t border-white/10">
           <div>
-            <h3 className="font-display text-2xl font-bold text-ink-black">{project.title}</h3>
-            <p className="font-body text-body-md text-on-surface-variant mt-1 max-w-2xl">
+            <h3 className="font-display text-xl font-bold text-white">{project.title}</h3>
+            <p className="font-body text-[14px] text-white/60 mt-1 max-w-2xl leading-relaxed">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-2 mt-3">
-              {project.tags.map((t) => (
-                <Tag key={t}>{t}</Tag>
+              {project.tags.map((t, i) => (
+                <span key={t} className={`px-3 py-0.5 rounded-full font-mono text-[11px] font-bold border ${i % 2 === 0 ? 'bg-primary/15 text-primary border-primary/30' : 'bg-white/10 text-white/70 border-white/20'}`}>
+                  {t}
+                </span>
               ))}
               {project.private && (
-                <span className="px-3 py-1 rounded-full bg-ink-black text-surface-white font-mono text-[12px] border border-ink-black uppercase">
+                <span className="px-3 py-0.5 rounded-full bg-primary/20 text-primary font-mono text-[11px] font-bold border border-primary/30 uppercase">
                   Private
                 </span>
               )}
@@ -133,24 +137,33 @@ function Lightbox({ project, onClose }) {
             {project.links.demo && (
               <a
                 href={project.links.demo}
-                className="px-6 py-2 rounded bg-primary text-on-primary font-mono text-[12px] uppercase hover:bg-primary-container transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-2 rounded bg-primary text-on-primary font-mono text-[12px] uppercase hover:bg-primary-container transition-colors inline-flex items-center gap-2"
               >
-                Live Demo
+                <span className="material-symbols-outlined text-[15px]">
+                  {project.category.includes('web') ? 'language' : 'open_in_new'}
+                </span>
+                {project.category.includes('web') ? 'View Site' : 'View Project'}
               </a>
             )}
             {project.links.source && (
               <a
                 href={project.links.source}
-                className="px-6 py-2 rounded border border-outline text-on-surface font-mono text-[12px] uppercase hover:border-primary hover:text-primary transition-colors flex items-center gap-2"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2 rounded-lg border border-white/20 text-white/70 font-mono text-[12px] uppercase hover:border-primary hover:text-primary transition-colors flex items-center gap-2"
               >
-                <span className="material-symbols-outlined text-[16px]">code</span>
+                <span className="material-symbols-outlined text-[15px]">code</span>
                 Source
               </a>
             )}
             {project.links.docs && (
               <a
                 href={project.links.docs}
-                className="px-6 py-2 rounded border border-outline text-on-surface font-mono text-[12px] uppercase hover:border-primary hover:text-primary transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2 rounded-lg border border-white/20 text-white/70 font-mono text-[12px] uppercase hover:border-primary hover:text-primary transition-colors"
               >
                 Docs
               </a>
@@ -158,7 +171,9 @@ function Lightbox({ project, onClose }) {
             {project.links.audit && (
               <a
                 href={project.links.audit}
-                className="px-6 py-2 rounded border border-outline text-on-surface font-mono text-[12px] uppercase hover:border-primary hover:text-primary transition-colors"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-5 py-2 rounded-lg border border-white/20 text-white/70 font-mono text-[12px] uppercase hover:border-primary hover:text-primary transition-colors"
               >
                 Audit Report
               </a>
