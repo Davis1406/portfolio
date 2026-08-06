@@ -23,29 +23,30 @@ function TagChip({ label, index, isPrivate }) {
   )
 }
 
-function ProjectCard({ project, onOpen }) {
+function ProjectCard({ project, onOpen, eager }) {
   const isWide = project.span.includes('col-span-8') || project.span.includes('col-span-12')
 
   /* ── Wide card: image left · content right ── */
   if (isWide) {
     return (
       <article
-        className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
+        className={`${project.span} group flex flex-col md:flex-row md:h-[280px] overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
         onClick={() => onOpen(project)}
       >
-        {/* Left: screenshot */}
-        <div className="md:w-1/3 h-56 md:h-auto relative overflow-hidden shrink-0 min-h-[200px]">
+        {/* Left: screenshot — fixed width, stretches full card height */}
+        <div className="md:w-2/5 h-52 md:h-full relative overflow-hidden shrink-0">
           <img
             src={project.screenshot}
             alt={project.title}
-            loading="lazy"
-            decoding="async"
+            loading={eager ? 'eager' : 'lazy'}
+            fetchpriority={eager ? 'high' : 'auto'}
+            decoding={eager ? 'sync' : 'async'}
             className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
         </div>
 
         {/* Right: content */}
-        <div className="flex-1 flex flex-col justify-center p-6 gap-4">
+        <div className="flex-1 flex flex-col justify-center p-6 gap-3 min-w-0">
           {/* Tags */}
           <div className="flex flex-wrap gap-2">
             {project.tags.map((t, i) => <TagChip key={t} label={t} index={i} />)}
@@ -54,22 +55,22 @@ function ProjectCard({ project, onOpen }) {
 
           {/* Title + subtitle */}
           <div>
-            <h2 className="font-display text-2xl font-bold text-on-surface leading-tight group-hover:text-primary transition-colors duration-300">
+            <h2 className="font-display text-xl font-bold text-on-surface leading-tight group-hover:text-primary transition-colors duration-300">
               {project.title}
             </h2>
-            <p className="font-display text-[15px] font-semibold text-primary mt-1 leading-snug">
+            <p className="font-display text-[14px] font-semibold text-primary mt-0.5 leading-snug">
               {project.subtitle}
             </p>
           </div>
 
           {/* Description */}
-          <p className="font-body text-[14px] text-on-surface-variant leading-relaxed line-clamp-3">
+          <p className="font-body text-[13px] text-on-surface-variant leading-relaxed line-clamp-2">
             {project.description}
           </p>
 
           {/* CTA */}
           <div>
-            <button className="px-6 py-2 rounded bg-primary text-white font-mono text-[12px] font-bold uppercase hover:shadow-[0_4px_15px_rgba(230,57,70,0.3)] transition-shadow">
+            <button className="px-5 py-1.5 rounded bg-primary text-white font-mono text-[11px] font-bold uppercase hover:shadow-[0_4px_15px_rgba(230,57,70,0.3)] transition-shadow">
               {project.category.includes('web') ? 'View Site' : 'View Project'}
             </button>
           </div>
@@ -84,8 +85,8 @@ function ProjectCard({ project, onOpen }) {
       className={`${project.span} group flex flex-col overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
       onClick={() => onOpen(project)}
     >
-      {/* Image */}
-      <div className="h-52 relative overflow-hidden shrink-0">
+      {/* Image — fixed 200px height, always clipped */}
+      <div className="h-[200px] relative overflow-hidden shrink-0">
         <img
           src={project.screenshot}
           alt={project.title}
@@ -93,8 +94,8 @@ function ProjectCard({ project, onOpen }) {
           decoding="async"
           className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
         />
-        {/* Fade bottom of image into card bg */}
-        <div className="absolute bottom-0 inset-x-0 h-12 bg-gradient-to-t from-surface-container to-transparent" />
+        {/* Fade into card bg */}
+        <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-surface-container to-transparent pointer-events-none" />
       </div>
 
       {/* Content */}
@@ -254,8 +255,6 @@ export default function Projects() {
 
   return (
     <div className="flex flex-col w-full gap-margin-desktop">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary-container/5 blur-[120px] -z-10"></div>
-      <div className="absolute bottom-40 left-20 w-96 h-96 bg-secondary-container/10 blur-[150px] -z-10"></div>
 
       <section className="flex flex-col md:flex-row justify-between items-start md:items-end gap-gutter pt-8">
         <div className="flex flex-col gap-base max-w-2xl">
@@ -295,9 +294,9 @@ export default function Projects() {
         </div>
       </section>
 
-      <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[minmax(340px,auto)] pb-margin-desktop" style={{ contentVisibility: 'auto' }}>
-        {visible.map((p) => (
-          <ProjectCard key={p.id} project={p} onOpen={setSelected} />
+      <section className="grid grid-cols-1 md:grid-cols-12 gap-gutter auto-rows-[minmax(300px,auto)] pb-margin-desktop">
+        {visible.map((p, i) => (
+          <ProjectCard key={p.id} project={p} onOpen={setSelected} eager={i === 0} />
         ))}
       </section>
 

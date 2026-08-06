@@ -52,7 +52,7 @@ function Typewriter({ words }) {
 function ProfileImage() {
   return (
     <div className="relative max-w-[300px] mx-auto w-full">
-      <div className="absolute -inset-3 bg-gradient-to-br from-primary/20 via-transparent to-transparent rounded-2xl blur-2xl"></div>
+      <div className="absolute -inset-3 rounded-2xl" style={{ background: 'radial-gradient(ellipse at top left, rgba(230,57,70,0.18) 0%, transparent 70%)' }}></div>
       <div className="relative bg-surface-white rounded-2xl p-2.5 border border-surface-container-high tech-shadow">
         <div className="h-9 bg-surface-muted flex items-center px-4 gap-2 rounded-t-xl border-b border-surface-container-high">
           <div className="w-3 h-3 rounded-full bg-surface-container-highest border border-outline/20"></div>
