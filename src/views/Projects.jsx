@@ -30,18 +30,16 @@ function ProjectCard({ project, onOpen, eager }) {
   if (isWide) {
     return (
       <article
-        className={`${project.span} group flex flex-col md:flex-row md:h-[280px] overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
+        className={`${project.span} group flex flex-col md:flex-row overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
         onClick={() => onOpen(project)}
       >
-        {/* Left: screenshot — fixed width, stretches full card height */}
-        <div className="md:w-2/5 h-52 md:h-full shrink-0 overflow-hidden">
-          <img
-            src={project.screenshot}
-            alt={project.title}
-            loading={eager ? 'eager' : 'lazy'}
-            fetchPriority={eager ? 'high' : 'auto'}
-            decoding={eager ? 'sync' : 'async'}
-            className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        {/* Left: screenshot — self-stretch fills flex row height, bg-cover always works */}
+        <div className="md:w-2/5 h-52 md:h-auto md:self-stretch shrink-0 overflow-hidden">
+          <div
+            className="w-full h-full bg-cover bg-left-top transition-transform duration-500 group-hover:scale-105"
+            style={{ backgroundImage: `url(${project.screenshot})` }}
+            role="img"
+            aria-label={project.title}
           />
         </div>
 
@@ -85,14 +83,13 @@ function ProjectCard({ project, onOpen, eager }) {
       className={`${project.span} group flex flex-col overflow-hidden rounded-xl bg-surface-container border border-outline-variant/40 hover:border-primary/50 hover:shadow-[0_8px_30px_rgba(230,57,70,0.1)] transition-[border-color,box-shadow] duration-300 cursor-pointer`}
       onClick={() => onOpen(project)}
     >
-      {/* Image — fixed 200px height, always clipped */}
+      {/* Image — fixed 200px, bg-cover always fills correctly for SVG + PNG */}
       <div className="h-[200px] shrink-0 overflow-hidden relative">
-        <img
-          src={project.screenshot}
-          alt={project.title}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.04]"
+        <div
+          className="w-full h-full bg-cover bg-left-top transition-transform duration-500 group-hover:scale-[1.04]"
+          style={{ backgroundImage: `url(${project.screenshot})` }}
+          role="img"
+          aria-label={project.title}
         />
         {/* Fade into card bg */}
         <div className="absolute bottom-0 inset-x-0 h-10 bg-gradient-to-t from-surface-container to-transparent pointer-events-none" />
