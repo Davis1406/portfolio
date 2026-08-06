@@ -4,67 +4,68 @@ import { projects, filters } from '../data/projects'
 function ProjectCard({ project, onOpen }) {
   return (
     <article
-      className={`${project.span} group relative overflow-hidden rounded-2xl border border-white/10 transition-all duration-500 hover:border-primary/60 hover:shadow-[0_8px_40px_rgba(230,57,70,0.18)] flex flex-col cursor-pointer min-h-[280px]`}
+      className={`${project.span} group relative overflow-hidden rounded-2xl border border-white/10 transition-all duration-500 hover:border-primary/50 hover:shadow-[0_8px_32px_rgba(230,57,70,0.15)] flex flex-col cursor-pointer min-h-[280px]`}
       onClick={() => onOpen(project)}
     >
-      {/* Full-bleed screenshot */}
+      {/* Full-bleed screenshot — clearly visible, minimal overlay */}
       <div
-        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-out group-hover:scale-105"
+        className="absolute inset-0 bg-cover bg-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
         style={{ backgroundImage: `url(${project.screenshot})` }}
         role="img"
         aria-label={project.title}
       />
 
-      {/* Dark vignette — strong at bottom, fades to nothing at top */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10 transition-opacity duration-500 group-hover:from-black/90" />
+      {/* Subtle vignette only at very bottom so title plate has backing */}
+      <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
 
       {/* Top-left: tags */}
-      <div className="relative z-10 flex flex-wrap gap-2 p-4">
+      <div className="relative z-10 flex flex-wrap gap-1.5 p-3">
         {project.tags.map((t) => (
           <span
             key={t}
-            className="px-2.5 py-0.5 rounded-full font-mono text-[11px] font-bold uppercase bg-black/50 text-white/90 border border-white/20 backdrop-blur-sm"
+            className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase bg-black/55 text-white/90 border border-white/15 backdrop-blur-sm"
           >
             {t}
           </span>
         ))}
         {project.private && (
-          <span className="px-2.5 py-0.5 rounded-full font-mono text-[11px] font-bold uppercase bg-primary/80 text-white border border-primary/40 backdrop-blur-sm">
+          <span className="px-2.5 py-0.5 rounded-full font-mono text-[10px] font-bold uppercase bg-primary/75 text-white border border-primary/30 backdrop-blur-sm">
             Private
           </span>
         )}
       </div>
 
       {/* Top-right: open icon */}
-      <span className="absolute top-4 right-4 z-10 material-symbols-outlined text-white/50 group-hover:text-primary transition-all duration-300 group-hover:scale-110">
+      <span className="absolute top-3 right-3 z-10 material-symbols-outlined text-white/50 group-hover:text-primary transition-all duration-300 text-[20px]">
         open_in_new
       </span>
 
-      {/* Bottom: title + subtitle always visible; description + cta reveal on hover */}
-      <div className="relative z-10 mt-auto p-5">
-        {/* Description — slides up on hover */}
-        <p className="font-body text-[13px] text-white/75 mb-3 line-clamp-2
-                       translate-y-4 opacity-0
-                       group-hover:translate-y-0 group-hover:opacity-100
-                       transition-all duration-400 ease-out delay-75">
+      {/* Bottom-left: title plate */}
+      <div className="relative z-10 mt-auto p-3">
+        <div className="inline-block">
+          <h2 className="font-display text-[15px] font-bold text-white leading-snug drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)]">
+            {project.title}
+          </h2>
+          <p className="font-mono text-[10px] text-white/60 uppercase tracking-widest mt-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+            {project.subtitle}
+          </p>
+        </div>
+
+        {/* Hover: description + CTA slide up */}
+        <p className="font-body text-[12px] text-white/80 mt-2 line-clamp-2 max-w-sm
+                      opacity-0 translate-y-2
+                      group-hover:opacity-100 group-hover:translate-y-0
+                      transition-all duration-300 ease-out
+                      drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
           {project.description}
         </p>
-
-        <h2 className="font-display text-xl font-bold text-white leading-tight group-hover:text-primary-fixed transition-colors duration-300">
-          {project.title}
-        </h2>
-        <p className="font-mono text-[11px] text-white/55 uppercase tracking-widest mt-1">
-          {project.subtitle}
-        </p>
-
-        {/* CTA — slides up on hover */}
-        <div className="mt-4 flex gap-3
-                        translate-y-3 opacity-0
-                        group-hover:translate-y-0 group-hover:opacity-100
-                        transition-all duration-400 ease-out delay-150">
-          <span className="inline-flex items-center gap-1.5 px-5 py-2 rounded-lg bg-primary text-white font-mono text-[11px] font-bold uppercase shadow-[0_4px_18px_rgba(230,57,70,0.4)] hover:bg-primary/90 transition-colors">
-            <span className="material-symbols-outlined text-[14px]">zoom_in</span>
-            View Project
+        <div className="mt-3 flex gap-2
+                        opacity-0 translate-y-2
+                        group-hover:opacity-100 group-hover:translate-y-0
+                        transition-all duration-300 ease-out delay-75">
+          <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-primary text-white font-mono text-[10px] font-bold uppercase shadow-[0_2px_12px_rgba(230,57,70,0.5)]">
+            <span className="material-symbols-outlined text-[13px]">zoom_in</span>
+            View
           </span>
         </div>
       </div>
